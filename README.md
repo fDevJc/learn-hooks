@@ -35,3 +35,17 @@ const useInput = (initialValue, validator) => {
   return { value, onChange };
 };
 ```
+
+## useEffect
+
+```javascript
+useEffect(callbackFunc, deps);
+```
+
+componentDidMount
+
+componentWillUnMount
+
+componentDidUpdate
+
+동일한 효과를 줄수있다.

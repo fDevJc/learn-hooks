@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 const useInput = (initialValue, validator) => {
@@ -58,6 +58,11 @@ const App = () => {
   const decrementItem = () => {
     setItem(item - 1);
   };
+  const sayHello = () => {
+    console.log('hello');
+  };
+  useEffect(sayHello, [section]);
+
   return (
     <>
       <h3>useState</h3>

@@ -92,6 +92,23 @@ const useClick = (onClick) => {
   return element;
 };
 //----------------------------------------------------------------
+const useBeforeLeave = (func) => {
+  const handle = (event) => {
+    const { screenY } = event;
+    console.log(screenY);
+    if (screenY <= 0) {
+      func();
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('mouseleave', handle);
+    return () => {
+      document.removeEventListener('mouseleave', handle);
+    };
+  }, []);
+};
+
+//----------------------------------------------------------------
 const App = () => {
   const titleUpdater = useTitle('Loading...');
 
@@ -124,6 +141,10 @@ const App = () => {
     alert(1);
   });
 
+  const funcLeave = () => {
+    console.log('pls do not leave');
+  };
+  useBeforeLeave(funcLeave);
   return (
     <>
       <h3>useState</h3>

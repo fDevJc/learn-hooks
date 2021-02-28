@@ -2,6 +2,8 @@
 
 learn react's hooks
 
+---
+
 ## useState
 
 ```javascript
@@ -11,6 +13,8 @@ const incrementItem = () => {
   setItem(item + 1);
 };
 ```
+
+---
 
 ## make useInput() by using hooks
 
@@ -36,6 +40,8 @@ const useInput = (initialValue, validator) => {
 };
 ```
 
+---
+
 ## useEffect
 
 ```javascript
@@ -49,3 +55,32 @@ componentWillUnMount
 componentDidUpdate
 
 동일한 효과를 줄수있다.
+
+# New things
+
+## optional chaining
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+
+```js
+const adventurer = {
+  name: 'Alice',
+  cat: {
+    name: 'Dinah',
+  },
+};
+
+const dogName = adventurer.dog?.name;
+console.log(dogName);
+// expected output: undefined
+// no error
+
+console.log(adventurer.someNonExistentMethod?.());
+// expected output: undefined
+```
+
+---
+
+## Rules of Hooks
+
+https://reactjs.org/docs/hooks-rules.html#explanation

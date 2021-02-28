@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+//----------------------------------------------------------------
 const useInput = (initialValue, validator) => {
   const [value, setValue] = useState(initialValue);
   const onChange = (event) => {
@@ -20,7 +21,7 @@ const useInput = (initialValue, validator) => {
   };
   return { value, onChange };
 };
-
+//----------------------------------------------------------------
 const sections = [
   {
     key: 1,
@@ -41,8 +42,24 @@ const useTab = (sequence) => {
     changeContent: setIdx,
   };
 };
+//----------------------------------------------------------------
+const useTitle = (initailTitle) => {
+  const [title, setTitle] = useState(initailTitle);
+  const updateTitle = () => {
+    const htmlTitle = document.querySelector('title');
+    htmlTitle.innerText = title;
+  };
 
+  useEffect(updateTitle, [title]);
+
+  return setTitle;
+};
+//----------------------------------------------------------------
 const App = () => {
+  const titleUpdater = useTitle('Loading...');
+
+  setTimeout(() => titleUpdater('Home'), 5000);
+
   const maxLen = (value) => {
     return value.length <= 10;
   };

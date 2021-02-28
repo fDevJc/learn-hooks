@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
 import './App.css';
 
-const useInput = (initialValue) => {
+const useInput = (initialValue, validator) => {
   const [value, setValue] = useState(initialValue);
   const onChange = (event) => {
     const {
       target: { value },
     } = event;
-    setValue(value);
+
+    let validationCheck = true;
+    if (typeof validator === 'function') {
+      validationCheck = validator(value);
+    }
+    if (validationCheck) {
+      setValue(value);
+    } else {
+      console.log('max len');
+    }
   };
   return { value, onChange };
 };
 
 const App = () => {
-  const name = useInput('Mr.');
+  const maxLen = (value) => {
+    return value.length <= 10;
+  };
+
+  const name = useInput('Mr.', maxLen);
   const [item, setItem] = useState(0);
   const incrementItem = () => {
     setItem(item + 1);

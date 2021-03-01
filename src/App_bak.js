@@ -109,6 +109,18 @@ const useBeforeLeave = (func) => {
 };
 
 //----------------------------------------------------------------
+const useFadeIn = (durantion = 1, delay = 0) => {
+  const element = useRef();
+  useEffect(() => {
+    if (element.current) {
+      const { current } = element;
+      current.style.transition = `opacity ${durantion}s ease-in-out ${delay}s`;
+      current.style.opacity = 1;
+    }
+  }, []);
+  return { ref: element, style: { opacity: 0 } };
+};
+//----------------------------------------------------------------
 const App = () => {
   const titleUpdater = useTitle('Loading...');
 
@@ -145,6 +157,9 @@ const App = () => {
     console.log('pls do not leave');
   };
   useBeforeLeave(funcLeave);
+
+  const fadeInH1 = useFadeIn(1, 2);
+  const fadeInP = useFadeIn(5, 10);
   return (
     <>
       <h3>useState</h3>
@@ -165,6 +180,10 @@ const App = () => {
       <input ref={useRefTest} placeholder="ref"></input>
       <br></br>
       <h1 ref={useClickTest}>useClick</h1>
+      <div>
+        <h1 {...fadeInH1}>hello</h1>
+        <p {...fadeInP}>blablablablabla</p>
+      </div>
     </>
   );
 };

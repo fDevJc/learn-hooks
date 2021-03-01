@@ -121,6 +121,24 @@ const useFadeIn = (durantion = 1, delay = 0) => {
   return { ref: element, style: { opacity: 0 } };
 };
 //----------------------------------------------------------------
+const useNetwork = (onChange) => {
+  const [status, setStatus] = useState(navigator.onLine);
+  const handleChange = () => {
+    //onChange(navigator.onLine);
+    setStatus(navigator.onLine);
+  };
+  useEffect(() => {
+    window.addEventListener('online', handleChange);
+    window.addEventListener('offline', handleChange);
+    return () => {
+      window.removeEventListener('online', handleChange);
+      window.removeEventListener('offline', handleChange);
+    };
+  }, []);
+  console.log(status);
+  return status;
+};
+//----------------------------------------------------------------
 const App = () => {
   const titleUpdater = useTitle('Loading...');
 
@@ -160,6 +178,7 @@ const App = () => {
 
   const fadeInH1 = useFadeIn(1, 2);
   const fadeInP = useFadeIn(5, 10);
+  const online = useNetwork();
   return (
     <>
       <h3>useState</h3>
@@ -184,6 +203,7 @@ const App = () => {
         <h1 {...fadeInH1}>hello</h1>
         <p {...fadeInP}>blablablablabla</p>
       </div>
+      <div>{online ? 'Online' : 'Offline'}</div>
     </>
   );
 };

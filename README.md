@@ -84,3 +84,7 @@ console.log(adventurer.someNonExistentMethod?.());
 ## Rules of Hooks
 
 https://reactjs.org/docs/hooks-rules.html#explanation
+
+## Notification
+
+https://developer.mozilla.org/en-US/docs/Web/API/Notification

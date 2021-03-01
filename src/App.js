@@ -1,32 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
-const useFullScreen = () => {
-  const element = useRef();
-  const fullScreenHandler = () => {
-    element.current.requestFullscreen();
+const useNotification = (title) => {
+  const alertNotification = () => {
+    if (Notification.permission !== 'granted') {
+      Notification.requestPermission().then((res) => {
+        if (res === 'granted') {
+          new Notification(title);
+        } else {
+          return;
+        }
+      });
+    } else {
+      console.log('granted');
+      new Notification(title);
+    }
   };
 
-  const exitFullScreenHandler = () => {
-    document.exitFullscreen();
-  };
-
-  return {
-    ref: element,
-    fullScreen: fullScreenHandler,
-    exitSceen: exitFullScreenHandler,
-  };
+  return alertNotification;
 };
 
 const App = () => {
-  const { ref, fullScreen, exitSceen } = useFullScreen();
+  const alertNotification = useNotification('Are you sure?');
   return (
     <>
-      <div ref={ref}>
-        <img src="https://placeimg.com/500/500" alt="ranImg"></img>
-        <button onClick={exitSceen}>Exit Screen</button>
+      <div>
+        <button onClick={alertNotification}>Hello</button>
       </div>
-      <button onClick={fullScreen}>Full Screen</button>
     </>
   );
 };

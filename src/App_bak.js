@@ -155,6 +155,23 @@ const useScroll = () => {
   return scrollY;
 };
 //----------------------------------------------------------------
+
+const useFullScreen = () => {
+  const element = useRef();
+  const fullScreenHandler = () => {
+    element.current.requestFullscreen();
+  };
+
+  const exitFullScreenHandler = () => {
+    document.exitFullscreen();
+  };
+
+  return {
+    ref: element,
+    fullScreen: fullScreenHandler,
+    exitSceen: exitFullScreenHandler,
+  };
+};
 //----------------------------------------------------------------
 //----------------------------------------------------------------
 //----------------------------------------------------------------
@@ -200,6 +217,7 @@ const App = () => {
   const fadeInP = useFadeIn(5, 10);
   const online = useNetwork();
   const y = useScroll();
+  const { ref, fullScreen, exitSceen } = useFullScreen();
   return (
     <>
       <h3>useState</h3>
@@ -230,6 +248,11 @@ const App = () => {
           Hello
         </h1>
       </div>
+      <div ref={ref}>
+        <img src="https://placeimg.com/500/500" alt="ranImg"></img>
+        <button onClick={exitSceen}>Exit Screen</button>
+      </div>
+      <button onClick={fullScreen}>Full Screen</button>
     </>
   );
 };

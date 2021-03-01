@@ -139,6 +139,26 @@ const useNetwork = (onChange) => {
   return status;
 };
 //----------------------------------------------------------------
+const useScroll = () => {
+  const [scrollY, setScrollY] = useState();
+
+  const scrollChange = () => {
+    console.log(window.scrollY);
+    setScrollY(window.scrollY);
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', scrollChange);
+    return () => {
+      window.removeEventListener('scroll', scrollChange);
+    };
+  }, []);
+  return scrollY;
+};
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+//----------------------------------------------------------------
 const App = () => {
   const titleUpdater = useTitle('Loading...');
 
@@ -179,6 +199,7 @@ const App = () => {
   const fadeInH1 = useFadeIn(1, 2);
   const fadeInP = useFadeIn(5, 10);
   const online = useNetwork();
+  const y = useScroll();
   return (
     <>
       <h3>useState</h3>
@@ -204,6 +225,11 @@ const App = () => {
         <p {...fadeInP}>blablablablabla</p>
       </div>
       <div>{online ? 'Online' : 'Offline'}</div>
+      <div style={{ height: '1000vh' }}>
+        <h1 style={{ position: 'fixed', color: y > 100 ? 'red' : 'blue' }}>
+          Hello
+        </h1>
+      </div>
     </>
   );
 };

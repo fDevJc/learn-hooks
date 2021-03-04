@@ -173,6 +173,24 @@ const useFullScreen = () => {
   };
 };
 //----------------------------------------------------------------
+const useNotification = (title) => {
+  const alertNotification = () => {
+    if (Notification.permission !== 'granted') {
+      Notification.requestPermission().then((res) => {
+        if (res === 'granted') {
+          new Notification(title);
+        } else {
+          return;
+        }
+      });
+    } else {
+      console.log('granted');
+      new Notification(title);
+    }
+  };
+
+  return alertNotification;
+};
 //----------------------------------------------------------------
 //----------------------------------------------------------------
 //----------------------------------------------------------------
@@ -218,6 +236,7 @@ const App = () => {
   const online = useNetwork();
   const y = useScroll();
   const { ref, fullScreen, exitSceen } = useFullScreen();
+  const alertNotification = useNotification('Are you sure?');
   return (
     <>
       <h3>useState</h3>
@@ -253,6 +272,9 @@ const App = () => {
         <button onClick={exitSceen}>Exit Screen</button>
       </div>
       <button onClick={fullScreen}>Full Screen</button>
+      <div>
+        <button onClick={alertNotification}>Hello</button>
+      </div>
     </>
   );
 };
